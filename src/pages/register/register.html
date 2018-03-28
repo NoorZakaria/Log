@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Create Account
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Name</ion-label>
+      <ion-input type="text" [(ngModel)]="fname" #name></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Mobile Phone</ion-label>
+      <ion-input type="text"  [(ngModel)]="mphone"  #mobile></ion-input>
+    </ion-item>
+
+  <ion-item>
+    <ion-label floating>Email Address</ion-label>
+    <ion-input type="email"  [(ngModel)]="eemail"  #username></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Password</ion-label>
+    <ion-input type="password"  [(ngModel)]="ppassword" #password></ion-input>
+  </ion-item>
+  
+</ion-list>
+
+<div padding>
+  <button block ion-button (click)="registerUser(fname,mphone,eemail,ppassword)" item-left>Register</button>
+</div>
+<div padding>
+ <!-- <button block ion-button (click)="createperson(fname,mphone,eemail,ppassword)" item-left>Create Person
+
+ </button>-->
+</div>
+
+</ion-content>
+
+
+
+
+
+

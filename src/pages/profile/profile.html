@@ -1,0 +1,25 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+ 
+    
+ <p>name : {{(profileData|async)?.name}}</p>
+<p> name : {{(profileData|async)?.email}}</p>
+
+ <!-- <p>{{userDisplayName}}</p>-->
+  <p> {{getInfo.id}} </p>
+ <p> {{getInfo.email}}</p>
+</ion-content>

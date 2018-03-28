@@ -1,1 +1,30 @@
-<ion-nav [root]="rootPage"></ion-nav>
+
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>My Profile</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+      <ion-card class="cards-list-demo">
+          <ion-item>
+              <ion-avatar item-start>
+                <img src="assets/imgs/noor.jpg">
+              </ion-avatar>
+              <h2>Noor Zakaria</h2>
+              <p>July 12, 1996</p>
+            </ion-item>
+    <ion-list>
+      <button ion-item menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+          <ion-icon name="{{p.icon}}"></ion-icon>
+          {{p.title}}
+        </button>
+    </ion-list>
+    </ion-card>
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

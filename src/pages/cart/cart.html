@@ -1,0 +1,55 @@
+<ion-header>
+    <ion-navbar color="primary">
+            <ion-buttons end>
+                    <button ion-button icon-only>
+                            <ion-icon name="cart"></ion-icon>
+                        </button>
+              </ion-buttons> 
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+      <ion-title>
+        My Cart
+      </ion-title>
+      
+      </ion-navbar>
+  
+  </ion-header>
+
+  <ion-content class="cards-bg social-cards">
+
+      <ion-card *ngFor="let item of menulistref$ | async">
+            
+          <img src="assets/imgs/pizzahouse/{{item.img}}" />
+      
+        <ion-card-content>
+          <p>اسم الصنف {{item.name}}  </p>
+          <p> السعر {{item.price}}  </p>
+        </ion-card-content>
+      
+        <ion-item>
+            <button ion-button (click)="add(item.name)" item-start>
+                    <ion-icon name="add"></ion-icon>
+            </button> 
+            
+            <button ion-button  middle>
+                    <ion-icon name="remove"></ion-icon>
+            </button>
+            <button ion-button  item-end>
+                    <ion-icon name="trash"></ion-icon>
+            </button>
+            
+               
+             
+          </ion-item>
+      </ion-card>     
+      
+  </ion-content>
+      
+      <style>
+        .social-cards ion-col {
+          padding: 0;
+        }
+      </style>
+
+

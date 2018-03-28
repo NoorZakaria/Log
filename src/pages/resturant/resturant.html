@@ -1,0 +1,35 @@
+
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-buttons end>
+            <button ion-button icon-only (click)="cart()">
+                    <ion-icon name="cart"></ion-icon>
+                </button>
+      </ion-buttons> 
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+      <ion-title>
+        Resturant
+      </ion-title> 
+      </ion-navbar>
+      <ion-buttons end>
+         <!--<button ion-button (click)="addMarker()"><ion-icon name="add"></ion-icon>Add Marker</button>-->
+      </ion-buttons> 
+  </ion-header>
+
+    <ion-content>
+        <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+
+        <ion-list>
+                <ion-item *ngFor="let item of resturantListRef$ | async">
+                        <ion-thumbnail item-start>
+                            <img src="assets/imgs/{{item.img}}">
+                          </ion-thumbnail>                       
+                     <button ion-button color="dark" clear (click)="page(item.name)" > <h2>{{item.name}}</h2> </button> 
+                    </ion-item>
+         </ion-list>
+
+         
+        </ion-content>  
+        
