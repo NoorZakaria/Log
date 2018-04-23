@@ -1,8 +1,7 @@
  import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
- 
+import { MyApp } from './app.component'; 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact'; 
 import { HomePage } from '../pages/home/home'; 
@@ -17,9 +16,9 @@ import { AngularFireModule } from 'angularfire2';
 import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login'; 
 import { LoggedinPage } from '../pages/loggedin/loggedin'; 
-//import { ProfilePage} from '../pages/profile/profile';
+//import { ProfilePage} from '../pages/profile/profile'; 
 import { Geolocation } from '@ionic-native/geolocation'; 
-import {FirebaseListObservable} from 'angularfire2/database';     
+import {AngularFireList} from 'angularfire2/database';     
 import {AngularFireDatabase} from 'angularfire2/database';      
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import {LoginPageModule} from '../pages/login/login.module'; 
@@ -37,9 +36,19 @@ import { MenuPageModule } from '../pages/menu/menu.module';
 import { CartPageModule } from '../pages/cart/cart.module';
 import { ProfilePage } from '../pages/profile/profile';
 import { ProfilePageModule } from '../pages/profile/profile.module';
-import { UsersServiceProvider } from '../providers/users-service/users-service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TestPage } from '../pages/test/test';
+import { Camera } from '@ionic-native/camera';
+import { TestPageModule } from '../pages/test/test.module';
+import { OrderPageModule } from '../pages/order/order.module';
+import { EditPage } from '../pages/edit/edit';
+import { EditPageModule } from '../pages/edit/edit.module';
+import { SettingPageModule } from '../pages/setting/setting.module';
+import{PlacePage} from '../pages/place/place';
+import {TabePage} from '../pages/tabe/tabe';
+import { Device } from '@ionic-native/device';
+import { RoomPage } from '../pages/room/room';
 //import { UsersServiceProvider } from '../providers/users-service/users-service';
 export const firebaseAuth =  
 {
@@ -52,16 +61,21 @@ export const firebaseAuth =
       messagingSenderId: "554680742007"  
     };   
   
-@NgModule({ 
+@NgModule({  
   declarations: [  
     MyApp, 
     AboutPage,  
     ContactPage,
     HomePage, 
-   SettingPage, 
-   OrderPage,
-   //CartPage,
-   LogoutPage
+  // SettingPage, 
+   //OrderPage,
+   //CartPage, 
+   LogoutPage,
+   PlacePage,
+   TabePage,
+   RoomPage
+  // EditPage
+   //TestPage
 //ProfilePage
    //MenuPage  
  
@@ -73,19 +87,20 @@ export const firebaseAuth =
     AngularFireAuthModule,
     IonicImageViewerModule, 
     AngularFireDatabaseModule, 
-    //Tab1PageModule, 
     LoginPageModule , 
-    //ProfilePageModule,
     RegisterPageModule,
     TabsPageModule,
-  //  Tab2PageModule,
     LoggedinPageModule,
     ResturantPageModule,
     MenuPageModule,
     CartPageModule,
     ProfilePageModule,
     HttpClientModule,
-   HttpModule
+   HttpModule,
+   TestPageModule,
+   OrderPageModule,
+   EditPageModule,
+   SettingPageModule
      
   ],
   bootstrap: [IonicApp],
@@ -105,16 +120,22 @@ export const firebaseAuth =
    CartPage,
    LogoutPage,
    MenuPage,
-   ProfilePage
+   ProfilePage,
+   TestPage,
+   EditPage,
+   PlacePage,
+   TabePage,
+   RoomPage
   ], 
   providers: [
     AngularFireAuth, 
     Geolocation,
     StatusBar,  
     SplashScreen,
+    Camera,
+    Device,
     AngularFireDatabase, 
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UsersServiceProvider
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
 
   ] 
 })

@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import{CartPage} from '../cart/cart';
 import { Observable } from 'rxjs/Observable';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
+import { AngularFireList } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Cart } from '../../models/cart';
 
 
 
@@ -13,17 +15,42 @@ import { FirebaseListObservable } from 'angularfire2/database';
   templateUrl: 'pizzatime.html',
 })
 export class PizzatimePage {
-  peoplelist : FirebaseListObservable<any>;
+
+  peoplelist : AngularFireList<any>;
+
+  mycart = {} as Cart;
+
 
   public quantity =1;
   public total =0;
   public firstParam; 
   resturantListRef$: Observable<any[]>;
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    db: AngularFireDatabase) {
-      this.peoplelist= db.list('/cart');
 
-      this.firstParam = navParams.get("menu");
+
+  itemRef: AngularFireList<any>;
+  items: Observable<any[]>;
+
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+   public db: AngularFireDatabase,public fire: AngularFireAuth) {
+
+    this.itemRef = db.list('/cart');
+  /*  this.items = this.itemRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });*/
+    this.itemRef.snapshotChanges(['child_changed'])
+    .subscribe(actions => {
+      actions.forEach(action => {
+      //  console.log(action.type);
+        console.log(action.key);
+        console.log(action.payload.val());
+      });
+    });
+//this.item = this.itemRef.valueChanges();
+
+   // this.peoplelist= db.list('/cart');
+
+    this.firstParam = navParams.get("menu");
     let name = this.firstParam;
 
     if(name == 'مشروبات ساخنة') {  
@@ -86,7 +113,7 @@ export class PizzatimePage {
     }*/
     addtocart(name,img,price){ 
       // this.showprofile();
-     this.peoplelist.push({
+   /*  this.peoplelist.push({
        name:name, 
        img:img,
        price : price,  
@@ -94,8 +121,26 @@ export class PizzatimePage {
        totalprice:price
      }).then(newPerson =>{
        this.navCtrl.push('PizzatimePage');
-     },error =>{console.log(error)}); 
-   }
+     },error =>{console.log(error)}); */
+
+
+     this.itemRef.update(this.fire.auth.currentUser.uid,
+      {
+       name:name, 
+       img:img,
+       price : price,  
+       quan:this.quantity,
+       totalprice:price,
+       uid: this.fire.auth.currentUser.uid
+      }).then(newPerson => {
+        this.navCtrl.push('CartPage');
+      }, error => { console.log(error) });
+
+   /*   this.fire.authState.take(1).subscribe (auth=>{
+        this.db.object('cart/' + auth.uid).set(this.mycart)
+        .then(()=> this.navCtrl.push('CartPage'));
+      })*/
+    }
 
   cart (){ 
     this.navCtrl.setRoot('CartPage');

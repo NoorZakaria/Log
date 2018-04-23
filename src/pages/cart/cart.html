@@ -16,26 +16,27 @@
   
   </ion-header>
 
+<!--
   <ion-content class="cards-bg social-cards">
 
-      <ion-card *ngFor="let item of menulistref$ | async">
+      <ion-card>
             
-          <img src="assets/imgs/pizzahouse/{{item.img}}" />
+          <img src="assets/imgs/pizzahouse/{{(profileData|async)?.img}}" />
       
         <ion-card-content>
-          <p>اسم الصنف {{item.name}}  </p>
-          <p> السعر {{item.price}}  </p>
+          <p> اسم الصنف {{(profileData|async)?.name}}  </p>
+          <p>  السعر {{(profileData|async)?.price}}  </p>
         </ion-card-content>
       
         <ion-item>
-            <button ion-button (click)="add(item.name)" item-start>
+            <button ion-button (click)="add()" item-start>
                     <ion-icon name="add"></ion-icon>
             </button> 
             
-            <button ion-button  middle>
+            <button ion-button (click)="remove()"  middle>
                     <ion-icon name="remove"></ion-icon>
             </button>
-            <button ion-button  item-end>
+            <button ion-button  (click)="delete()" item-end>
                     <ion-icon name="trash"></ion-icon>
             </button>
             
@@ -44,6 +45,9 @@
           </ion-item>
       </ion-card>     
       
+      {{(profileData|async)?.quan}}
+      <br>
+      {{(profileData|async)?.totalprice}}
   </ion-content>
       
       <style>
@@ -53,3 +57,63 @@
       </style>
 
 
+    -->
+    
+<ion-content padding class="bg">
+
+    <ion-card class="">
+        <ion-card-header>
+          <ion-row justify-content-between>
+            <ion-col col-auto>
+                <img src="assets/imgs/pizzahouse/{{(item|async)?.img}}" />
+              </ion-col>
+            <ion-col>
+              <ion-row text-wrap>
+                <h2>{{(item|async)?.name}} </h2>
+              </ion-row>
+              <ion-row text-wrap>
+                <p></p>
+              </ion-row>
+              <ion-row class="buttons">
+                <ion-col>
+                    {{(item|async)?.price}}
+                 </ion-col>
+                <ion-col>
+                  Quantity
+                </ion-col>
+                <ion-col>
+                    {{(item|async)?.quan}}
+                </ion-col>
+                <ion-col>
+                    <button ion-button  (click)="delete()" item-end>
+                        <ion-icon name="trash"></ion-icon>
+                </button>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-card-header>
+      </ion-card>
+    
+  
+    
+    <ion-card>
+   
+    <ion-list>
+      <button ion-item>
+       
+        Total Price :         {{(item|async)?.totalprice}}
+
+      </button>
+  
+      
+     
+  
+    </ion-list>
+  
+  <ion-list>
+     <button ion-button type="submit" (click)="order()" item-start >Order</button>
+  </ion-list>
+  </ion-card>
+   
+  </ion-content>

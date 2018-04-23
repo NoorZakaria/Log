@@ -1,22 +1,20 @@
 <ion-header>
-    <ion-navbar color="primary">
-            <ion-buttons end>
-                    <button ion-button icon-only (click)="cart()">
-                            <ion-icon name="cart"></ion-icon>
-                        </button>
-              </ion-buttons> 
-        <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-          </button>
-      <ion-title>
-        Orders
-      </ion-title>
-      </ion-navbar>
+  <ion-navbar hideBackButton="true" color="primary">
       <ion-buttons end>
-         <!--<button ion-button (click)="addMarker()"><ion-icon name="add"></ion-icon>Add Marker</button>-->
-      </ion-buttons> 
-  </ion-header>
+          <button ion-button icon-only (click)="exitChat()" >
+                  <ion-icon name="exit"></ion-icon>
+              </button>
+    </ion-buttons> 
+    <ion-title>
+      Order
+    </ion-title> 
+    </ion-navbar>  
+</ion-header>
 
-<ion-content padding>
 
-</ion-content>
+<ion-tabs>
+    <ion-tab [root]="tab1Root" tabTitle="Track your order" tabIcon="map"></ion-tab>
+    <ion-tab [root]="tab2Root" tabTitle="Chat" tabIcon="chatbubbles"></ion-tab>
+  
+  </ion-tabs>
+  

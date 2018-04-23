@@ -33,7 +33,7 @@
 
     <div [ngSwitch]="pet">
         <ion-list *ngSwitchCase="'puppies'">
-                <ion-item *ngFor="let item of menulistref$ | async">
+                <ion-item class="color" *ngFor="let item of menulistref$ | async">
                         <ion-thumbnail item-start>
                             <img src="assets/imgs/pizzahouse/{{item.img}}">
                           </ion-thumbnail>                       
@@ -42,15 +42,15 @@
                     </ion-item>
               </ion-list>
 
-              <ion-list *ngSwitchCase="'kittens'">
-                    <ion-item *ngFor="let item of info$ | async">
+              <ion-list class="bg" *ngSwitchCase="'kittens'">
+                    <ion-item class="color" *ngFor="let item of info$ | async">
                             <ion-item>
                                     <ion-icon name="pin" item-start></ion-icon>
                                       المنطقة : {{item.place}}
                             </ion-item> 
                             <ion-item>
                                     <ion-icon name="cash" item-start></ion-icon>
-                                      الحد الأدنى للتوصيل المجاني : {{item.free}}
+                                      الحد للتوصيل المجاني : {{item.free}}
                             </ion-item> 
                             <ion-item>
                                     <ion-icon name="car" item-start></ion-icon>

@@ -17,6 +17,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { Observable } from 'rxjs/Observable';
+import{TabePage} from '../pages/tabe/tabe';
+import{PlacePage} from '../pages/place/place';
 @Component({
   templateUrl: 'app.html' 
 })  
@@ -26,6 +28,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = LoginPage;
+  page: Array<{title: string, component: any}>;
 
   pages: Array<{title: string, component: any, icon:string}>;
   item: Observable<any>;
@@ -40,8 +43,10 @@ export class MyApp {
     this.pages = [
       { title: 'Restaurant', component: ResturantPage, icon:'restaurant' },
       { title: 'My Cart', component: CartPage, icon:'cart' },
-      { title: 'Orders', component: OrderPage, icon:'list-box' },
-      { title: 'Settings', component: SettingPage, icon:'settings' },
+     // { title: 'Orders', component: OrderPage, icon:'list-box' },
+      { title: 'Profile', component: SettingPage, icon:'contact' },
+      { title: 'Map', component: LoggedinPage, icon:'globe' },
+      { title: 'Nearby Restaurant', component: PlacePage, icon:'restaurant' },
       { title: 'Logout', component: LogoutPage, icon:'log-out' }
 
     ];

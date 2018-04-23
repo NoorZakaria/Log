@@ -22,8 +22,8 @@
 
  
   <ion-content>
-      <ion-list>
-          <ion-item *ngFor="let item of resturantListRef$ | async">
+      <ion-list class="bg">
+          <ion-item class="bg" *ngFor="let item of resturantListRef$ | async">
                   <ion-thumbnail item-start>
                       <img src="assets/imgs/pizzahouse/{{item.img}}">
                     </ion-thumbnail>                       

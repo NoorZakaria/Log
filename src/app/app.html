@@ -1,22 +1,28 @@
 
 <ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>My Profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-header>
+        <ion-navbar color="primary">
+          <ion-title>
+            My Profile
+          </ion-title>
+        </ion-navbar>
+      </ion-header>
 
-  <ion-content>
+
+
+  <ion-content >
       <ion-card class="cards-list-demo">
-          <ion-item>
-              <ion-avatar item-start>
-                <img src="assets/imgs/noor.jpg">
-              </ion-avatar>
-              <h2>Noor Zakaria</h2>
-              <p>July 12, 1996</p>
+          <ion-item class="b">
+           <!--   <ion-avatar item-start> 
+                
+                  <ion-icon name="bicycle"></ion-icon>
+                </ion-avatar>-->
+              <h2> <img src="assets/imgs/logo-instagram.png">
+              </h2>
+              <p></p>
             </ion-item>
     <ion-list>
-      <button ion-item menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button class="bg" ion-item menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
           <ion-icon name="{{p.icon}}"></ion-icon>
           {{p.title}}
         </button>

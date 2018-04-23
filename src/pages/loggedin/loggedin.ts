@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef,NgZone  } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 //import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth'; 
@@ -7,6 +7,7 @@ import { Geolocation} from '@ionic-native/geolocation';
 //import { Device } from '@ionic-native/device';
 import{CartPage} from '../cart/cart';
 
+import { LoadingController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -14,61 +15,133 @@ import{CartPage} from '../cart/cart';
   templateUrl: 'loggedin.html',
 }) 
 export class LoggedinPage {
-   
-  @ViewChild('map') mapElement: ElementRef;
+  
   map: any;
-  markers = [];
+  markers: any;
+  autocomplete: any;
+  GoogleAutocomplete: any;
+  GooglePlaces: any;
+  geocoder: any
+  autocompleteItems: any;
+  loading: any;
 
-  constructor(public navCtrl: NavController,
-    public platform: Platform,
-    private geolocation: Geolocation) {
-    platform.ready().then(() => {
-      this.initMap();
+  constructor(
+    public zone: NgZone, 
+    public geolocation: Geolocation,
+    public loadingCtrl: LoadingController
+  ) {
+   // this.loading.present();
+    //this.clearMarkers();//remove previous markers
+
+    this.geocoder = new google.maps.Geocoder;
+    let elem = document.createElement("div")
+    this.GooglePlaces = new google.maps.places.PlacesService(elem);
+    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
+    this.autocomplete = {
+      input: ''
+    };
+    this.autocompleteItems = [];
+    this.markers = [];
+    this.loading = this.loadingCtrl.create();
+
+    
+  }
+ 
+  ionViewDidEnter(){
+      // let infoWindow = new google.maps.InfoWindow({map: map});
+      //Set latitude and longitude of some place
+    this.map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 32.226242, lng: 35.255177},
+      zoom: 15
     });
-  }
-  cart (){
-    this.navCtrl.setRoot('CartPage');
-  }
-  initMap() {
-    this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }).then((resp) => {
-      let mylocation = new google.maps.LatLng(resp.coords.latitude,resp.coords.longitude);
-      this.map = new google.maps.Map(this.mapElement.nativeElement, {
-        zoom: 15,
-        center: mylocation
+    this.geolocation.getCurrentPosition().then((resp) => {
+      let pos = {
+        lat: resp.coords.latitude,
+        lng: resp.coords.longitude
+      };
+      let marker = new google.maps.Marker({
+        position: pos,
+        map: this.map,
+        title: 'I am here!'
       });
+      this.markers.push(marker);
+      this.map.setCenter(pos);
+      this.loading.dismiss();
+
+    }).catch((error) => {
+      console.log('Error getting location', error);
+      this.loading.dismiss();
     });
-    let watch = this.geolocation.watchPosition();
-    watch.subscribe((data) => {
-      this.deleteMarkers();
-      let updatelocation = new google.maps.LatLng(data.coords.latitude,data.coords.longitude);
-      let image = 'assets/imgs/blue-bike.jpg';
-      this.addMarker(updatelocation,image);
-      this.setMapOnAll(this.map);
-    });
-  } 
-  addMarker(location, image) {
-    let marker = new google.maps.Marker({ 
-      position: location,  
-      map: this.map,
-      icon: image
-    });
-    this.markers.push(marker);
+
   }
-  
-  setMapOnAll(map) {
-    for (var i = 0; i < this.markers.length; i++) {
-      this.markers[i].setMap(map);
+ 
+  tryGeolocation(){
+    this.loading.present();
+    this.clearMarkers();//remove previous markers
+    this.geolocation.getCurrentPosition().then((resp) => {
+      let pos = {
+        lat: resp.coords.latitude,
+        lng: resp.coords.longitude
+      };
+      let marker = new google.maps.Marker({
+        position: pos,
+        map: this.map,
+        title: 'I am here!'
+      });
+      this.markers.push(marker);
+      this.map.setCenter(pos);
+      this.loading.dismiss();
+
+    }).catch((error) => {
+      console.log('Error getting location', error);
+      this.loading.dismiss();
+    });
+  }
+
+  updateSearchResults(){
+    if (this.autocomplete.input == '') {
+      this.autocompleteItems = [];
+      return;
     }
+    this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
+      (predictions, status) => {
+        this.autocompleteItems = [];
+        if(predictions){
+          this.zone.run(() => {
+            predictions.forEach((prediction) => {
+              this.autocompleteItems.push(prediction);
+            });
+          });
+        }
+    });
   }
-  
-  clearMarkers() {
-    this.setMapOnAll(null);
-  }
-  
-  deleteMarkers() {
+
+  selectSearchResult(item){
     this.clearMarkers();
+    this.autocompleteItems = [];
+
+    this.geocoder.geocode({'placeId': item.place_id}, (results, status) => {
+      if(status === 'OK' && results[0]){
+        // let position = {
+        //     lat: results[0].geometry.location.lat,
+        //     lng: results[0].geometry.location.lng
+        // };
+        let marker = new google.maps.Marker({
+          position: results[0].geometry.location,
+          map: this.map
+        });
+        this.markers.push(marker);
+        this.map.setCenter(results[0].geometry.location);
+      }
+    })
+  }
+
+  clearMarkers(){
+    for (var i = 0; i < this.markers.length; i++) {
+      console.log(this.markers[i])
+      this.markers[i].setMap(null);
+    }
     this.markers = [];
   }
 
 }
- 

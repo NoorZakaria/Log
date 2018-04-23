@@ -5,43 +5,90 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-
+<!--
 <ion-content padding>
-  
   <ion-list>
-    <ion-item>
-      <ion-label floating>Name</ion-label>
-      <ion-input type="text" [(ngModel)]="fname" #name></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Mobile Phone</ion-label>
-      <ion-input type="text"  [(ngModel)]="mphone"  #mobile></ion-input>
-    </ion-item>
 
   <ion-item>
+    <ion-label floating>Name</ion-label>
+    <ion-input type="text" [(ngModel)]="user.name" #name></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Mobile Phone</ion-label>
+    <ion-input type="text"  [(ngModel)]="user.mobile"  #mobile></ion-input>
+  </ion-item>
+
+   <ion-item>
+     
     <ion-label floating>Email Address</ion-label>
-    <ion-input type="email"  [(ngModel)]="eemail"  #username></ion-input>
+    <ion-input type="text"  [(ngModel)]="user.email"  ></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Password</ion-label>
-    <ion-input type="password"  [(ngModel)]="ppassword" #password></ion-input>
+    <ion-input type="password"  [(ngModel)]="user.password" ></ion-input>
   </ion-item>
-  
-</ion-list>
 
-<div padding>
-  <button block ion-button (click)="registerUser(fname,mphone,eemail,ppassword)" item-left>Register</button>
-</div>
-<div padding>
- <!-- <button block ion-button (click)="createperson(fname,mphone,eemail,ppassword)" item-left>Create Person
+  <ion-item>
+      <ion-label floating>Delivery / User</ion-label>
+      <ion-input type="password"  [(ngModel)]="user.type" ></ion-input>
+    </ion-item>
+  </ion-list>
 
- </button>-->
-</div>
+  <div padding>
+  <button block ion-button (click)="registerUser(user)" item-left>Register</button>
+  </div>
 
 </ion-content>
+-->
+<ion-content padding class="bg">
+   
+    <div padding>
+      <ion-row>
+          <ion-col>
+              <img class="logo" src="assets/imgs/logo-instagram.png" />
+            </ion-col>
+      </ion-row>
 
+          <ion-list inset class="no-border">
+
+            <ion-item>
+              <ion-label>Username</ion-label>
+              <ion-input type="text" [(ngModel)]="user.name"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Mobile</ion-label>
+              <ion-input type="text" [(ngModel)]="user.mobile"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Email</ion-label>
+                <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+              </ion-item>
+
+             <ion-item>
+                  <ion-label>Password</ion-label>
+                  <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                  <ion-label>Delivery/User</ion-label>
+                  <ion-input type="text" [(ngModel)]="user.type"></ion-input>
+              </ion-item>
+                
+          </ion-list>
+      
+      <ion-row>
+        <ion-col>
+          <button ion-button class="login-button"  (click)="registerUser(user)">Register</button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+      </ion-row>
+    </div>
+  </ion-content>
 
 
 

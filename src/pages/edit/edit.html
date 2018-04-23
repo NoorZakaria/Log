@@ -1,0 +1,80 @@
+
+<ion-header>
+  <ion-navbar color="primary">
+      <ion-buttons end>
+          <button ion-button icon-only (click)="cart()">
+                  <ion-icon name="cart"></ion-icon>
+              </button>
+    </ion-buttons> 
+      <button ion-button menuToggle>
+         
+          <ion-icon name="menu"></ion-icon>
+        </button>
+    <ion-title>
+      Edit Profile
+    </ion-title>
+    </ion-navbar>
+     
+</ion-header>
+
+<ion-content class="bg" padding >
+  <ion-list>
+      <ion-list-header class="b">
+              <img src="assets/imgs/logo-instagram.png">
+      </ion-list-header>
+    </ion-list>
+
+    <ion-list class="bg">
+      <ion-item > 
+              <ion-icon name="person" color="primary" item-start></ion-icon>
+              <ion-label stacked>Name</ion-label>
+              <ion-input type="text" placeholder={{(item|async)?.name}} [(ngModel)]="user.name" ></ion-input>
+
+              
+
+      </ion-item>
+
+      <!--
+  <ion-item>
+      <ion-icon name="mail" color="primary" item-start></ion-icon>
+      <ion-label stacked>Email</ion-label>
+      <ion-input type="text" placeholder={{(profileData|async)?.email}} [(ngModel)]="user.email" ></ion-input>               
+  </ion-item>
+-->
+  <ion-item>
+      <ion-icon item-start name="call" color="primary"></ion-icon>
+      <ion-label stacked>Mobile</ion-label>
+      <ion-input type="text" placeholder={{(item|async)?.mobile}} [(ngModel)]="user.mobile" ></ion-input>
+  </ion-item>
+
+  <ion-item>
+      <ion-icon item-start name="lock" color="primary"></ion-icon>
+      <ion-label stacked>Password</ion-label>
+              <ion-input type="text" placeholder={{(item|async)?.password}} [(ngModel)]="user.password" ></ion-input>
+  </ion-item>
+ 
+
+</ion-list>
+
+
+  <ion-footer>
+      <ion-toolbar>
+          <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <div>
+              <button block ion-button (click)="cancel()">
+                    Cancel</button> 
+                  </div>
+                </ion-col>
+                <ion-col>
+                  <div>
+            <button block ion-button (click)="save(user)">  
+                 Save</button> 
+                  </div>
+                </ion-col>
+              </ion-row>
+              </ion-grid>
+       </ion-toolbar>
+    </ion-footer> 
+</ion-content> 

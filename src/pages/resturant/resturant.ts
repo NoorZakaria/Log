@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {FirebaseListObservable} from 'angularfire2/database';  
+import {AngularFireList} from 'angularfire2/database';  
 import {AngularFireDatabase} from 'angularfire2/database';   
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
@@ -12,7 +12,7 @@ import { ResturantItem } from '../../models/resturant-item/resturant-item.interf
   selector: 'page-resturant',
   templateUrl: 'resturant.html',
 })
-export class ResturantPage { 
+export class ResturantPage {  
   items: any; 
 
   resturantListRef$: Observable<any[]>;

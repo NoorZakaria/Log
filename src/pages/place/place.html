@@ -1,0 +1,55 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-buttons end>
+                <button ion-button icon-only (click)="cart()" >
+                        <ion-icon name="cart"></ion-icon>
+                    </button>
+          </ion-buttons> 
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+  <ion-title>
+    Nearby Restaurants
+  </ion-title>
+  </ion-navbar>
+  <ion-buttons end>
+     <!--<button ion-button (click)="addMarker()"><ion-icon name="add"></ion-icon>Add Marker</button>-->
+  </ion-buttons> 
+  <ion-toolbar color="primary">
+    <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" placeholder="Find Restaurants"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="bg">
+  <ion-list [hidden]="autocompleteItems.length == 0">
+    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+      {{ item.description }}
+    </ion-item>
+  </ion-list>
+  <ion-grid *ngIf="nearbyItems.length == 0">
+    <ion-row>
+      <ion-col col-12>
+        <h4>
+          Please type a place on the Search bar to see nearby Restaurants
+        </h4>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row>
+        <ion-col col-12>
+            <img src="assets/imgs/loading1.gif" />
+          </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list *ngIf="nearbyItems.length > 0">
+    <ion-item *ngFor="let place of nearbyItems">
+      <h2>{{place.name}}</h2>
+      <p>{{place.vicinity}}</p>
+      <p>Rating {{place.rating}}</p>
+      <button ion-button clear item-end *ngIf="(place.opening_hours && !place.opening_hours.open_now)">CLOSED</button>
+      <button ion-button clear item-end *ngIf="(place.opening_hours && place.opening_hours.open_now)">OPEN NOW</button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

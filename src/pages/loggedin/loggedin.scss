@@ -1,6 +1,15 @@
-page-loggedin {
-    #map {
+
+
+ion-app._gmaps_cdv_ .nav-decor{
+    background-color: transparent !important;
+  }
+  
+  page-loggedin {
+      #map {
         height: 100%;
-        widows: 100%;
-    }
-}
+      }
+  }
+  .geolocation-btn{
+    margin: 0px;
+    padding: 0px;
+  }

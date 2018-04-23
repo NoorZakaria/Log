@@ -1,4 +1,4 @@
-
+<!--
 <ion-content class="login-content" padding>
     <ion-row class="logo-row">
       <ion-col></ion-col>
@@ -14,13 +14,14 @@
             <ion-list inset>
               
               <ion-item>
-                <ion-input type="text" placeholder="Email" name="email" #username required></ion-input>
+                <ion-input type="text" placeholder="Email" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}"></ion-input>
               </ion-item>
+
               <ion-item>
                
-                <ion-input type="password" placeholder="Password" name="password" #password required></ion-input>
+                <ion-input type="password" placeholder="Password" [(ngModel)]="user.password" [ngModelOptions]="{standalone: true}" ></ion-input>
               </ion-item>
-              
+            -->
               <!-- 
                 <ion-item>
                 <ion-input type="email" [(ngModel)]="login.email" placeholder="Email" name="email"  required></ion-input>
@@ -32,13 +33,13 @@
 			              <button ion-button color="secondary"  (click)="signOn()">Sign In</button>
 
               -->
-            </ion-list>
+         <!--   </ion-list>
           </ion-col>
         </ion-row>
         
         <ion-row>
           <ion-col class="signup-col">
-            <button ion-button class="submit-btn" full (click)="signInUser()">Login</button>
+            <button ion-button class="submit-btn" full (click)="signInUser(user)"> Login</button>
 
             <button ion-button class="register-btn" block clear (click)="register()">Create New Account</button> 
 
@@ -47,4 +48,38 @@
         
       </form>
     </div>
+  </ion-content>-->
+
+  <ion-navbar hideBackButton="true">
+      
+  </ion-navbar>
+
+
+
+  <ion-content padding class="transparent-header">
+    <ion-header>
+      <ion-navbar>
+      </ion-navbar>
+    </ion-header>
+    <img class="logo" src="assets/imgs/logo-instagram.png" />
+    <div padding>
+      <ion-item>
+        <ion-input type="text" placeholder="Email" [(ngModel)]="user.email" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder="Password" [(ngModel)]="user.password" ></ion-input>
+      </ion-item>
+      <button ion-button block outline (click)="signInUser(user)" color="light" class="login-button">Login</button>
+    </div>
+    <div class="strike">
+   <!--   <span>OR</span> -->
+    </div>
+   <!-- <button ion-button block clear (click)="login()" color="light" class="login-button"><ion-icon name="logo-facebook"></ion-icon> Login with Facebook</button>-->
   </ion-content>
+  <ion-footer>
+    <ion-toolbar class="footer">
+      <div (click)="register()">
+        <span>Don't have an account? <strong>Sign up here</strong>.</span>
+      </div>
+    </ion-toolbar>
+  </ion-footer>
